@@ -36,6 +36,7 @@ h2{font-size:clamp(34px,5vw,56px)}h3{font-size:clamp(24px,2.6vw,32px)}
 @keyframes drift{to{transform:translate(6vw,4vw) scale(1.15)}}
 nav{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px max(4vw,16px);z-index:6}
 .mark{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:18px;color:var(--but);text-decoration:none}
+.mark b{font-weight:inherit}
 .mark span{color:#fff;font-weight:500;font-stretch:100%;font-family:Manrope,sans-serif;font-size:14px;margin-left:10px;opacity:.8}
 .n1,.n2{position:absolute;left:0;right:0;display:flex;justify-content:center;white-space:nowrap;pointer-events:none}
 .n1{top:9svh;font-size:clamp(120px,31vw,520px);color:var(--but);z-index:1}
@@ -90,11 +91,11 @@ nav{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;
 .plans header{max-width:1100px;margin:0 auto 40px;display:grid;gap:14px}
 .plans header p{margin:0;max-width:620px;color:#3a4068}
 .stack{max-width:1100px;margin:0 auto;display:grid;gap:22px;padding-bottom:12vh}
-.card{position:sticky;top:calc(80px + var(--i)*18px);min-height:min(56svh,440px);border-radius:28px;padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:end;box-shadow:0 -10px 40px rgba(11,18,56,.12);transform-origin:50% 0}
+.card{position:sticky;top:calc(80px + var(--i)*18px);min-height:min(56svh,440px);border-radius:28px;padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:end;box-shadow:0 -10px 40px rgba(11,18,56,.12);transform-origin:50% 0;filter:brightness(1)}
 .card .tag{font-weight:700;font-size:14px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.22);justify-self:start}
 .card h3{font-size:clamp(30px,4.4vw,58px);font-stretch:118%;margin-top:14px}
 .card p{margin:0;font-size:17px;max-width:420px}
-.card .big{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(70px,12vw,170px);line-height:.8;opacity:.18;justify-self:end;align-self:start;grid-row:1}
+.card .big{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(70px,12vw,170px);line-height:.8;opacity:.18;justify-self:end;align-self:start;grid-row:1;grid-column:2}
 .k1{background:var(--cob);color:#fff}.k2{background:var(--ink);color:#fff}.k3{background:var(--mint);color:var(--ink)}.k3 .tag{background:rgba(11,18,56,.1)}
 .k4{background:var(--cor);color:#fff}.k5{background:var(--but);color:var(--ink)}.k5 .tag{background:rgba(11,18,56,.1)}
 
@@ -129,7 +130,8 @@ footer mark{background:none;color:var(--but);border-bottom:1px dashed}
  body::after{display:none}
  .glow{filter:blur(40px)}
  nav{padding:14px 16px}nav .btn{min-height:44px;padding:0 16px;font-size:14px}
- .mark span{display:none}
+ .mark b{display:none}
+ .mark span{margin:0;font-size:16px;font-weight:700;color:var(--but);opacity:1}
  .hero{height:100svh;min-height:560px}
  .hero::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,rgba(11,18,56,.85));z-index:4;pointer-events:none}
  .n1{top:calc(70px + 6svh);font-size:27vw}
@@ -182,7 +184,7 @@ footer mark{background:none;color:var(--but);border-bottom:1px dashed}
 
 <section class="hero" id="top">
  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
- <nav><a class="mark" href="#top">RYAN LITTLE<span>Medicare, made simple</span></a><a class="btn" href="#contact">Partner with Ryan</a></nav>
+ <nav><a class="mark" href="#top"><b>RYAN LITTLE</b><span>Medicare, made simple</span></a><a class="btn" href="#contact">Partner with Ryan</a></nav>
  <h1 class="sr">Ryan Little, independent licensed Medicare agent in Oklahoma</h1>
  <div class="n1 wide" aria-hidden="true">Ryan</div>
  <div class="mw"><img class="me" src="ryan.webp" alt="Portrait of Ryan Little smiling"></div>
@@ -281,10 +283,24 @@ words.innerHTML=words.innerHTML.replace(/(<em>|<\/em>)|([^\s<]+)/g,(m,tag,w)=>ta
 if(window.gsap&&window.ScrollTrigger){
  gsap.registerPlugin(ScrollTrigger);
  const mm=gsap.matchMedia();
+ // Pinned horizontal section must be set up before triggers further down the page so their positions include the pin spacing.
+ mm.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)',()=>{
+  const how=document.querySelector('.how'),track=how.querySelector('.track');
+  how.classList.add('hz');
+  const dist=()=>track.scrollWidth-innerWidth;
+  const tw=gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:how,start:'top top',end:()=>'+='+dist(),pin:true,scrub:1,invalidateOnRefresh:true,refreshPriority:1}});
+  gsap.utils.toArray('.panel .num').forEach(n=>gsap.from(n,{yPercent:60,opacity:0,ease:'none',scrollTrigger:{trigger:n.parentElement,containerAnimation:tw,start:'left 85%',end:'left 40%',scrub:true}}));
+  return()=>how.classList.remove('hz');
+ });
+
  mm.add('(prefers-reduced-motion: no-preference)',()=>{
   const intro=gsap.timeline({defaults:{ease:'expo.out',duration:1.4}});
+  // If the visitor scrolls before the intro finishes, finish it so it can't fight the scroll animations.
+  const skipIntro=()=>intro.progress(1);
+  addEventListener('scroll',skipIntro,{once:true,passive:true});
+  intro.eventCallback('onComplete',()=>removeEventListener('scroll',skipIntro));
   intro.from('.n1',{yPercent:60,opacity:0})
-   .from('.me',{yPercent:18,opacity:0},'-=1.1')
+   .from('.me',{y:120,opacity:0},'-=1.1')
    .from('.n2',{yPercent:80,opacity:0},'-=1.1')
    .from('.chip',{scale:0,opacity:0,stagger:.08,ease:'back.out(2)',duration:.8},'-=.9')
    .from('.hero-foot,.cue,nav',{opacity:0,y:20,duration:.8},'-=.6');
@@ -294,14 +310,16 @@ if(window.gsap&&window.ScrollTrigger){
   gsap.to('.n2',{xPercent:24,ease:'none',scrollTrigger:st});
   gsap.to('.me',{scale:1.12,yPercent:6,xPercent:()=>innerWidth<=800?32:0,rotate:()=>innerWidth<=800?4:0,ease:'none',scrollTrigger:{...st,invalidateOnRefresh:true}});
   gsap.utils.toArray('.chip').forEach(c=>gsap.to(c,{y:+c.dataset.s,rotate:gsap.utils.random(-10,10),ease:'none',scrollTrigger:st}));
-  gsap.to('.hero-foot,.cue',{opacity:0,ease:'none',scrollTrigger:{...st,end:'30% top'}});
+  // Fade on scroll via filter so it doesn't fight the intro's opacity tween.
+  gsap.fromTo('.hero-foot,.cue',{filter:'opacity(1)'},{filter:'opacity(0)',ease:'none',immediateRender:false,scrollTrigger:{...st,end:'30% top'}});
 
   const hero=document.querySelector('.hero'),me=document.querySelector('.me');
-  hero.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;
+  const onMove=e=>{if(e.pointerType!=='mouse')return;
    const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
-   gsap.to(me,{rotateY:x*8,rotateX:-y*5,x:x*24,duration:.8,ease:'power3.out',transformPerspective:900});
-   gsap.to('.n1',{y:y*-20,duration:1,ease:'power3.out'});
-  });
+   gsap.to(me,{rotateY:x*8,rotateX:-y*5,x:x*24,duration:.8,ease:'power3.out',transformPerspective:900,overwrite:'auto'});
+   gsap.to('.n1',{y:y*-20,duration:1,ease:'power3.out',overwrite:'auto'});
+  };
+  hero.addEventListener('pointermove',onMove);
 
   gsap.set('.w',{opacity:.12});
   gsap.to('.w',{opacity:1,stagger:.1,ease:'none',scrollTrigger:{trigger:'.say',start:'top 70%',end:'bottom 75%',scrub:true}});
@@ -310,7 +328,7 @@ if(window.gsap&&window.ScrollTrigger){
   const cards=gsap.utils.toArray('.card');
   cards.forEach((c,i)=>{
    if(i===cards.length-1)return;
-   gsap.to(c,{scale:.9,filter:innerWidth>800?'brightness(.75)':'none',ease:'none',scrollTrigger:{trigger:cards[i+1],start:innerWidth>800?'top bottom':'top 60%',end:'top 20%',scrub:true}});
+   gsap.to(c,{scale:.9,filter:()=>innerWidth>800?'brightness(.75)':'brightness(1)',ease:'none',scrollTrigger:{trigger:cards[i+1],start:()=>innerWidth>800?'top bottom':'top 60%',end:'top 20%',scrub:true,invalidateOnRefresh:true}});
   });
 
   gsap.to('.ring',{rotate:360,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'bottom top',scrub:true}});
@@ -319,19 +337,13 @@ if(window.gsap&&window.ScrollTrigger){
   gsap.from('.cta h2',{scale:.8,opacity:0,ease:'none',scrollTrigger:{trigger:'.cta',start:'top bottom',end:'center center',scrub:true}});
 
   const skew=gsap.quickTo('.skew','skewX',{duration:.4,ease:'power3'});
-  ScrollTrigger.create({trigger:'.car',start:'top bottom',end:'bottom top',onUpdate:s=>skew(gsap.utils.clamp(-12,12,s.getVelocity()/-250))});
+  ScrollTrigger.create({trigger:'.car',start:'top bottom',end:'bottom top',onUpdate:s=>skew(gsap.utils.clamp(-12,12,s.getVelocity()/-250)),onLeave:()=>skew(0),onLeaveBack:()=>skew(0)});
 
+  return()=>{hero.removeEventListener('pointermove',onMove);removeEventListener('scroll',skipIntro)};
  });
 
- mm.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)',()=>{
-  const how=document.querySelector('.how'),track=how.querySelector('.track');
-  how.classList.add('hz');
-  const dist=()=>track.scrollWidth-innerWidth;
-  const tw=gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:how,start:'top top',end:()=>'+='+dist(),pin:true,scrub:1,invalidateOnRefresh:true}});
-  gsap.utils.toArray('.panel .num').forEach(n=>gsap.from(n,{yPercent:60,opacity:0,ease:'none',scrollTrigger:{trigger:n.parentElement,containerAnimation:tw,start:'left 85%',end:'left 40%',scrub:true}}));
-  return()=>how.classList.remove('hz');
- });
  addEventListener('load',()=>ScrollTrigger.refresh());
+ document.fonts&&document.fonts.ready.then(()=>ScrollTrigger.refresh());
 }
 }
 </script>
