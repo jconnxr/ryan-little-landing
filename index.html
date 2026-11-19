@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ryan Little · Medicare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, confident, a little showy — a person, not a carrier.
+   IDEA: a concert-poster-style name card that unfolds into a walkthrough.
+   PICTURE: Ryan's cut-out portrait between his giant name, parallaxing on scroll.
+   COLOUR and TYPE: cobalt field, butter yellow lifted from his shirt, coral spark; Archivo wide + Manrope.
+   LAYOUT: full-bleed bands — hero, word reveal, pinned sideways steps, carrier ticker, stacked plan cards, bio, CTA. */
+:root{color-scheme:light dark;--cob:#1d38d1;--cob2:#132797;--ink:#0b1238;--but:#f5efa4;--cor:#ff5b3d;--mint:#9ff0d0;--paper:#fbf9ef}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--ink);color:#fff;font:17px/1.6 Manrope,system-ui,sans-serif;overflow-x:clip}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.09;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wide{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;letter-spacing:-.01em;line-height:.86;text-transform:uppercase}
+h2,h3{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(34px,5vw,56px)}h3{font-size:clamp(24px,2.6vw,32px)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border-radius:99px;background:var(--cor);color:#fff;font-weight:700;text-decoration:none;transition:transform .25s,background .25s}
+.btn:hover{transform:translateY(-2px);background:#ff7257}.btn:focus-visible{outline:3px solid var(--but);outline-offset:3px}
+.btn svg{width:18px;height:18px}
+
+/* HERO */
+.hero{position:relative;height:100svh;min-height:620px;background:var(--cob);overflow:hidden;isolation:isolate}
+.glow{position:absolute;border-radius:50%;filter:blur(70px);z-index:-1;animation:drift 14s ease-in-out infinite alternate}
+.g1{width:55vw;height:55vw;left:-12vw;top:-18vw;background:#3b5cff}
+.g2{width:40vw;height:40vw;right:-10vw;bottom:-10vw;background:var(--cor);opacity:.55;animation-duration:18s}
+.g3{width:30vw;height:30vw;left:40%;top:30%;background:var(--but);opacity:.25;animation-duration:11s}
+@keyframes drift{to{transform:translate(6vw,4vw) scale(1.15)}}
+nav{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px max(4vw,16px);z-index:6}
+.mark{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:18px;color:var(--but);text-decoration:none}
+.mark span{color:#fff;font-weight:500;font-stretch:100%;font-family:Manrope,sans-serif;font-size:14px;margin-left:10px;opacity:.8}
+.n1,.n2{position:absolute;left:0;right:0;display:flex;justify-content:center;white-space:nowrap;pointer-events:none}
+.n1{top:9svh;font-size:clamp(120px,31vw,520px);color:var(--but);z-index:1}
+.n2{bottom:3svh;font-size:clamp(84px,21vw,360px);color:transparent;-webkit-text-stroke:2px var(--but);z-index:4}
+.mw{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;z-index:3;pointer-events:none}
+.me{position:relative;flex:none;height:min(84svh,960px);width:auto;max-width:none;z-index:3;filter:drop-shadow(0 30px 60px rgba(5,10,60,.55));transform-origin:50% 100%}
+.chip{position:absolute;z-index:5;padding:10px 16px;border-radius:99px;font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.c1{left:9%;top:44%;background:var(--but);color:var(--ink)}
+.c2{right:9%;top:36%;background:var(--cor);color:#fff}
+.c3{right:13%;top:62%;background:var(--mint);color:var(--ink)}
+.c4{left:13%;top:68%;background:#fff;color:var(--ink)}
+.hero-foot{position:absolute;left:max(4vw,16px);bottom:24px;max-width:300px;z-index:6;font-size:15px;line-height:1.45}
+.hero-foot b{display:block;color:var(--but);font-size:16px}
+.cue{position:absolute;right:max(4vw,16px);bottom:26px;z-index:6;font-size:13px;display:flex;align-items:center;gap:8px;opacity:.85}
+.cue i{display:block;width:2px;height:34px;background:linear-gradient(var(--but),transparent);animation:cue 1.6s infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* SAY */
+.say{background:var(--but);color:var(--ink);padding:clamp(80px,14vw,200px) max(6vw,16px)}
+.say p{max-width:1100px;margin:0 auto;font-family:Archivo,sans-serif;font-stretch:110%;font-weight:800;font-size:clamp(30px,4.6vw,64px);line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+.say p em{font-style:normal;color:var(--cob)}
+.say small{display:block;max-width:1100px;margin:36px auto 0;font-size:clamp(17px,1.6vw,21px);font-weight:500;color:#2a2f55}
+
+/* HOW */
+.how{background:var(--paper);color:var(--ink);overflow:hidden}
+.track{display:flex;flex-direction:column}
+.panel{padding:clamp(56px,8vw,96px) max(6vw,16px);display:grid;align-content:center;gap:18px}
+.panel .num{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(90px,14vw,200px);line-height:.8;color:var(--cob)}
+.panel p{max-width:520px;margin:0;font-size:18px;color:#323862}
+.panel.p0{background:var(--cob);color:#fff}.panel.p0 p{color:#dfe4ff}
+.panel.p2{background:var(--mint)}.panel.p4{background:var(--cor);color:#fff}.panel.p4 .num{color:var(--but)}.panel.p4 p{color:#fff}
+.how.hz .track{flex-direction:row;width:max-content;height:100svh}
+.how.hz .panel{width:min(78vw,860px);height:100svh;flex:none;padding-inline:clamp(40px,6vw,96px)}
+.how.hz .panel.p0{width:max(60vw,560px)}
+.arrow{font-weight:700;color:var(--but);display:none}.how.hz .arrow:not(.swipe){display:block}
+
+/* CARRIERS */
+.car{background:var(--ink);padding:clamp(64px,9vw,120px) 0;overflow:hidden}
+.car h2{padding:0 max(6vw,16px);margin-bottom:40px;max-width:900px}
+.car h2 span{color:var(--but)}
+.row{display:flex;width:max-content;animation:mq 26s linear infinite}
+.row.rev{animation-direction:reverse;animation-duration:32s;margin-top:14px}
+.row span{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(46px,8vw,120px);text-transform:uppercase;padding:0 .35em;line-height:1.05;white-space:nowrap}
+.row span:nth-child(odd){color:transparent;-webkit-text-stroke:1.5px #8ea0ff}
+.row span::after{content:"✦";font-size:.35em;vertical-align:.6em;margin-left:.7em;color:var(--cor);-webkit-text-stroke:0}
+.skew{will-change:transform}
+@keyframes mq{to{transform:translateX(-50%)}}
+.car .note{padding:28px max(6vw,16px) 0;margin:0;color:#a9b1d9;font-size:15px;max-width:760px}
+
+/* PLANS */
+.plans{background:var(--paper);color:var(--ink);padding:clamp(72px,9vw,120px) max(6vw,16px) 40px}
+.plans header{max-width:1100px;margin:0 auto 40px;display:grid;gap:14px}
+.plans header p{margin:0;max-width:620px;color:#3a4068}
+.stack{max-width:1100px;margin:0 auto;display:grid;gap:22px;padding-bottom:12vh}
+.card{position:sticky;top:calc(80px + var(--i)*18px);min-height:min(56svh,440px);border-radius:28px;padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:end;box-shadow:0 -10px 40px rgba(11,18,56,.12);transform-origin:50% 0}
+.card .tag{font-weight:700;font-size:14px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.22);justify-self:start}
+.card h3{font-size:clamp(30px,4.4vw,58px);font-stretch:118%;margin-top:14px}
+.card p{margin:0;font-size:17px;max-width:420px}
+.card .big{font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(70px,12vw,170px);line-height:.8;opacity:.18;justify-self:end;align-self:start;grid-row:1}
+.k1{background:var(--cob);color:#fff}.k2{background:var(--ink);color:#fff}.k3{background:var(--mint);color:var(--ink)}.k3 .tag{background:rgba(11,18,56,.1)}
+.k4{background:var(--cor);color:#fff}.k5{background:var(--but);color:var(--ink)}.k5 .tag{background:rgba(11,18,56,.1)}
+
+/* ABOUT */
+.about{background:var(--cob);padding:clamp(72px,10vw,140px) max(6vw,16px);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,90px);align-items:center;overflow:hidden}
+.disc{position:relative;aspect-ratio:1;max-width:520px;width:100%;justify-self:center}
+.disc .bg{position:absolute;inset:12%;border-radius:50%;background:var(--but);overflow:hidden}
+.disc .bg img{position:absolute;left:0;top:6%;width:100%}
+.ring{position:absolute;inset:0;width:100%;height:100%}
+.ring text{font:800 17px Archivo,sans-serif;font-stretch:125%;fill:#fff}
+.about h2 span{color:var(--but)}
+.about p{color:#e2e6ff;max-width:600px}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:28px}
+.facts div{border-top:2px solid rgba(255,255,255,.3);padding-top:10px;font-size:14px;color:#d3d9ff}
+.facts b{display:block;font-family:Archivo,sans-serif;font-stretch:125%;font-size:clamp(24px,2.6vw,34px);color:#fff;line-height:1.1}
+
+/* CTA */
+.cta{background:var(--ink);text-align:center;padding:clamp(90px,14vw,190px) max(6vw,16px);position:relative;overflow:hidden;isolation:isolate}
+.cta .glow{left:50%;top:50%;width:60vw;height:60vw;translate:-50% -50%;background:var(--cob);opacity:.7}
+.cta h2{font-size:clamp(40px,7.5vw,104px);font-stretch:125%;font-weight:900;text-transform:uppercase;line-height:.92;max-width:1100px;margin:0 auto}
+.cta h2 span{color:var(--but)}
+.cta p{max-width:560px;margin:26px auto 34px;color:#c9cff2}
+.cta .sample{display:block;margin-top:18px;font-size:13px;color:#8b93bf}
+footer{background:#060a24;color:#9aa2cc;font-size:13px;line-height:1.55;padding:40px max(6vw,16px)}
+footer p{max-width:900px;margin:0 0 10px}
+footer mark{background:none;color:var(--but);border-bottom:1px dashed}
+
+.dock{display:none}
+.dots{display:none}
+@media(max-width:800px){
+ body{font-size:16px}
+ body::after{display:none}
+ .glow{filter:blur(40px)}
+ nav{padding:14px 16px}nav .btn{min-height:44px;padding:0 16px;font-size:14px}
+ .mark span{display:none}
+ .hero{height:100svh;min-height:560px}
+ .hero::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,rgba(11,18,56,.85));z-index:4;pointer-events:none}
+ .n1{top:calc(70px + 6svh);font-size:27vw}
+ .me{height:min(76svh,720px)}
+ .n2{bottom:calc(112px + 3svh);font-size:19.5vw;z-index:5;color:var(--cor);-webkit-text-stroke:0;text-shadow:0 8px 30px rgba(11,18,56,.35)}
+ .chip{font-size:12px;padding:7px 11px}
+ .chip{display:none}
+ .cue{display:none}
+ .hero-foot{left:16px;right:16px;bottom:20px;max-width:none;font-size:15px}
+ .hero-foot b{font-size:20px;font-family:Archivo,sans-serif;font-stretch:115%;font-weight:800;margin-bottom:2px}
+ .say{padding:80px 20px}
+ .say p{font-size:clamp(28px,8vw,40px);line-height:1.1}
+ .panel{padding:36px 24px}
+ .track{flex-direction:row;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:12px;padding:56px 16px 18px;scroll-padding:16px}
+ .track::-webkit-scrollbar{display:none}
+ .panel{flex:none;width:84vw;max-width:400px;min-height:380px;border-radius:24px;scroll-snap-align:start;background:#fff;align-content:start}
+ .panel.p0{align-content:end}
+ .panel .num{font-size:96px}
+ .panel p{font-size:16px}
+ .arrow.swipe{display:block}
+ .dots{display:flex;justify-content:center;gap:8px;padding:0 0 48px}
+ .dots i{width:8px;height:8px;border-radius:99px;background:#c9cde3;transition:width .3s,background .3s}
+ .dots i.on{width:26px;background:var(--cob)}
+ .car{padding:72px 0}
+ .car h2{margin-bottom:28px}
+ .row span{font-size:48px}
+ .plans{padding:72px 16px 24px}
+ .stack{gap:14px;padding-bottom:6vh}
+ .card{top:calc(72px + var(--i)*10px);grid-template-columns:1fr;min-height:0;border-radius:22px;padding:24px 22px 26px;gap:14px}
+ .card .big{position:absolute;right:18px;top:16px;font-size:56px}
+ .card h3{font-size:30px;margin-top:10px}
+ .card p{font-size:16px}
+ .about{grid-template-columns:1fr;padding:72px 20px;gap:28px}
+ .disc{max-width:320px}
+ .facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+ .cta{padding:96px 20px 120px}
+ .cta .btn{width:100%;justify-content:center;max-width:360px}
+ footer{padding:32px 20px 110px}
+ .dock{display:flex;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:40;justify-content:space-between;align-items:center;gap:12px;padding:8px 8px 8px 18px;border-radius:99px;background:rgba(11,18,56,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 12px 40px rgba(0,0,0,.35);transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.9,.2,1)}
+ .dock.show{transform:none}
+ .dock span{font-weight:700;font-size:14px;line-height:1.2}.dock span small{display:block;font-weight:500;color:#aeb5dc;font-size:12px}
+ .dock .btn{min-height:44px;padding:0 18px;font-size:14px;white-space:nowrap;flex:none}
+ .dock span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
+@media(max-width:380px){.n2{bottom:calc(104px + 1svh)}}
+@media(prefers-reduced-motion:reduce){.glow,.row,.cue i{animation:none}}
+</style>
+</head>
+<body>
+
+<section class="hero" id="top">
+ <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+ <nav><a class="mark" href="#top">RYAN LITTLE<span>Medicare, made simple</span></a><a class="btn" href="#contact">Partner with Ryan</a></nav>
+ <h1 class="sr">Ryan Little, independent licensed Medicare agent in Oklahoma</h1>
+ <div class="n1 wide" aria-hidden="true">Ryan</div>
+ <div class="mw"><img class="me" src="ryan.webp" alt="Portrait of Ryan Little smiling"></div>
+ <div class="n2 wide" aria-hidden="true">Little</div>
+ <div class="chip c1" data-s="-120">Independent agent</div>
+ <div class="chip c2" data-s="-220">Keeps patients with you</div>
+ <div class="chip c3" data-s="-80">5+ years in Medicare</div>
+ <div class="chip c4" data-s="-170">Oklahoma native</div>
+ <div class="hero-foot"><b>Your patients' Medicare person.</b>One friendly, licensed agent your practice can hand every Medicare question to.</div>
+ <div class="cue"><i></i>Scroll</div>
+</section>
+
+<section class="say">
+ <p id="words">Medicare is confusing. Your patients shouldn't have to figure it out alone, <em>or leave the doctors they trust</em> just to land on a plan that works.</p>
+ <small>Ryan becomes the go-to Medicare contact for your practice: a real person who learns who your patients are, compares their options, and looks for plans that keep them seeing you.</small>
+</section>
+
+<section class="how" id="how">
+ <div class="track">
+  <div class="panel p0"><h2>How a partnership works</h2><p>No new software, no extra work for your staff, and no cost to your practice. Just a dependable person on the other end of the phone.</p><span class="arrow">Keep scrolling →</span><span class="arrow swipe">Swipe →</span></div>
+  <div class="panel p1"><div class="num">1</div><h3>You get one name to share.</h3><p>When a patient has a Medicare question, your front desk gives them Ryan's number. That's the whole handoff.</p></div>
+  <div class="panel p2"><div class="num">2</div><h3>Ryan gets to know them.</h3><p>He learns their doctors, prescriptions and budget, then compares options from every carrier he works with. He isn't tied to one company.</p></div>
+  <div class="panel p3"><div class="num">3</div><h3>They keep seeing you.</h3><p>He looks for plans where your practice stays in network, so patients keep their doctors and your schedule stays full.</p></div>
+  <div class="panel p4"><div class="num">4</div><h3>He sticks around.</h3><p>Plans change every year. Ryan checks back in, reviews their coverage and stays the person they call, not a 1-800 number.</p></div>
+ </div>
+ <div class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<section class="car" aria-labelledby="carh">
+ <h2 id="carh">Not one company's agent. <span>Ryan works with several.</span></h2>
+ <div class="skew"><div class="row" aria-hidden="true"></div><div class="row rev" aria-hidden="true"></div></div>
+ <p class="note">Carriers Ryan is appointed with: Humana, UnitedHealthcare, Aetna, Wellcare and Devoted Health. Being independent means he can compare plans side by side instead of selling just one.</p>
+</section>
+
+<section class="plans">
+ <header><h2>What he helps with</h2><p>From full Medicare Advantage plans to supplemental coverage that helps with costs Medicare doesn't pay.</p></header>
+ <div class="stack" id="stack"></div>
+</section>
+
+<section class="about">
+ <div class="disc">
+  <div class="bg"><img src="ryan.webp" alt=""></div>
+  <svg class="ring" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="c" d="M200,200 m-182,0 a182,182 0 1,1 364,0 a182,182 0 1,1 -364,0"/></defs><text textLength="1140" lengthAdjust="spacing"><textPath href="#c" textLength="1140" lengthAdjust="spacing">INDEPENDENT ✦ LICENSED ✦ OKLAHOMA ✦ PEOPLE FIRST ✦</textPath></text></svg>
+ </div>
+ <div>
+  <h2>Meet Ryan. <span>He'd rather know you than sell you.</span></h2>
+  <p>Ryan has spent more than five years helping Oklahomans through Medicare. He's a dad and a true people person, and he got into this work because he likes making people's lives a little easier.</p>
+  <p>He doesn't believe in dropping people into random plans. He takes the time to learn who his clients are, which doctors they see and what matters to them, then looks for coverage that keeps their doctors and keeps life running smoothly. That's why he works independently: so he's working for the person in front of him, not for one company.</p>
+  <p>His goal is simple: take a complicated process and make it feel easy.</p>
+  <div class="facts"><div><b>5+</b>years in Medicare</div><div><b>5</b>carriers</div><div><b>OK</b>born and based</div><div><b>People</b>first</div></div>
+ </div>
+</section>
+
+<section class="cta" id="contact">
+ <div class="glow"></div>
+ <h2>Give your patients <span>a Medicare person.</span></h2>
+ <p>A 15-minute call is all it takes to see if a partnership makes sense for your practice.</p>
+ <a class="btn" href="#contact">Book a 15-minute intro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+ <span class="sample">Sample page: booking link and phone number still to be added.</span>
+</section>
+
+<div class="dock" id="dock"><span>Ryan Little<small>Your patients' Medicare person</small></span><a class="btn" href="#contact">Book an intro</a></div>
+
+<footer>
+ <p>Ryan Little is a licensed, independent insurance agent. This site is not connected with or endorsed by the U.S. government, the federal Medicare program, or any medical practice.</p>
+ <p>We do not offer every plan available in your area. Currently we represent 5 organizations which offer <mark>number</mark> products in your area. Please contact Medicare.gov, 1-800-MEDICARE, or your local State Health Insurance Program (SHIP) to get information on all of your options.</p>
+ <p>Cancer, heart and stroke plans and hospital indemnity plans are supplemental policies. They are not Medicare supplement (Medigap) plans and do not replace health coverage.</p>
+</footer>
+
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script>
+{
+const track=document.querySelector('.track'),dots=[...document.querySelectorAll('.dots i')];
+track.addEventListener('scroll',()=>{const ps=[...track.children];let best=0,bd=1e9;ps.forEach((p,i)=>{const d=Math.abs(p.offsetLeft-track.scrollLeft-16);if(d<bd){bd=d;best=i}});dots.forEach((d,i)=>d.classList.toggle('on',i===best))},{passive:true});
+const dock=document.getElementById('dock'),heroEl=document.querySelector('.hero'),ctaEl=document.getElementById('contact');
+const vis={hero:true,cta:false};const upd=()=>dock.classList.toggle('show',!vis.hero&&!vis.cta);
+new IntersectionObserver(es=>{es.forEach(e=>{vis[e.target===heroEl?'hero':'cta']=e.isIntersecting});upd()},{threshold:0}).observe(heroEl);
+const io2=new IntersectionObserver(es=>{es.forEach(e=>vis.cta=e.isIntersecting);upd()});io2.observe(ctaEl);
+const carriers=['Humana','UnitedHealthcare','Aetna','Wellcare','Devoted Health'];
+const rowHTML=[...carriers,...carriers].map(c=>`<span>${c}</span>`).join('');
+document.querySelectorAll('.row').forEach(r=>r.innerHTML=rowHTML);
+
+const plans=[
+ ['MA','Medicare Advantage','An all-in-one alternative to Original Medicare, often with extra benefits like dental, vision or fitness.','k1'],
+ ['MAPD','Advantage + drug coverage','A Medicare Advantage plan that also includes Part D prescription coverage, so it\'s one plan and one card.','k2'],
+ ['SNP','Special Needs Plans','Plans built for people with both Medicare and Medicaid (D-SNP) or with certain chronic conditions (C-SNP).','k3'],
+ ['CHS','Cancer, heart & stroke','Supplemental plans that pay a benefit after a covered diagnosis, to help with bills Medicare doesn\'t cover.','k4'],
+ ['HIP','Hospital indemnity','Pays a set amount for a covered hospital stay to help with out-of-pocket costs.','k5']
+];
+document.getElementById('stack').innerHTML=plans.map((p,i)=>`<article class="card ${p[3]}" style="--i:${i}"><div><span class="tag">${p[0]}</span><h3>${p[1]}</h3></div><div class="big" aria-hidden="true">${String(i+1).padStart(2,'0')}</div><p>${p[2]}</p></article>`).join('');
+
+const words=document.getElementById('words');
+words.innerHTML=words.innerHTML.replace(/(<em>|<\/em>)|([^\s<]+)/g,(m,tag,w)=>tag?tag:`<span class="w">${w}</span>`);
+
+if(window.gsap&&window.ScrollTrigger){
+ gsap.registerPlugin(ScrollTrigger);
+ const mm=gsap.matchMedia();
+ mm.add('(prefers-reduced-motion: no-preference)',()=>{
+  const intro=gsap.timeline({defaults:{ease:'expo.out',duration:1.4}});
+  intro.from('.n1',{yPercent:60,opacity:0})
+   .from('.me',{yPercent:18,opacity:0},'-=1.1')
+   .from('.n2',{yPercent:80,opacity:0},'-=1.1')
+   .from('.chip',{scale:0,opacity:0,stagger:.08,ease:'back.out(2)',duration:.8},'-=.9')
+   .from('.hero-foot,.cue,nav',{opacity:0,y:20,duration:.8},'-=.6');
+
+  const st={trigger:'.hero',start:'top top',end:'bottom top',scrub:true};
+  gsap.to('.n1',{xPercent:-28,ease:'none',scrollTrigger:st});
+  gsap.to('.n2',{xPercent:24,ease:'none',scrollTrigger:st});
+  gsap.to('.me',{scale:1.12,yPercent:6,xPercent:()=>innerWidth<=800?32:0,rotate:()=>innerWidth<=800?4:0,ease:'none',scrollTrigger:{...st,invalidateOnRefresh:true}});
+  gsap.utils.toArray('.chip').forEach(c=>gsap.to(c,{y:+c.dataset.s,rotate:gsap.utils.random(-10,10),ease:'none',scrollTrigger:st}));
+  gsap.to('.hero-foot,.cue',{opacity:0,ease:'none',scrollTrigger:{...st,end:'30% top'}});
+
+  const hero=document.querySelector('.hero'),me=document.querySelector('.me');
+  hero.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;
+   const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
+   gsap.to(me,{rotateY:x*8,rotateX:-y*5,x:x*24,duration:.8,ease:'power3.out',transformPerspective:900});
+   gsap.to('.n1',{y:y*-20,duration:1,ease:'power3.out'});
+  });
+
+  gsap.set('.w',{opacity:.12});
+  gsap.to('.w',{opacity:1,stagger:.1,ease:'none',scrollTrigger:{trigger:'.say',start:'top 70%',end:'bottom 75%',scrub:true}});
+  gsap.from('.say small',{y:40,opacity:0,duration:1,scrollTrigger:{trigger:'.say small',start:'top 90%'}});
+
+  const cards=gsap.utils.toArray('.card');
+  cards.forEach((c,i)=>{
+   if(i===cards.length-1)return;
+   gsap.to(c,{scale:.9,filter:innerWidth>800?'brightness(.75)':'none',ease:'none',scrollTrigger:{trigger:cards[i+1],start:innerWidth>800?'top bottom':'top 60%',end:'top 20%',scrub:true}});
+  });
+
+  gsap.to('.ring',{rotate:360,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'bottom top',scrub:true}});
+  gsap.from('.disc .bg img',{yPercent:12,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'center center',scrub:true}});
+  gsap.from('.about > div:last-child > *',{y:50,opacity:0,stagger:.1,duration:1,ease:'expo.out',scrollTrigger:{trigger:'.about',start:'top 65%'}});
+  gsap.from('.cta h2',{scale:.8,opacity:0,ease:'none',scrollTrigger:{trigger:'.cta',start:'top bottom',end:'center center',scrub:true}});
+
+  const skew=gsap.quickTo('.skew','skewX',{duration:.4,ease:'power3'});
+  ScrollTrigger.create({trigger:'.car',start:'top bottom',end:'bottom top',onUpdate:s=>skew(gsap.utils.clamp(-12,12,s.getVelocity()/-250))});
+
+ });
+
+ mm.add('(min-width: 801px) and (prefers-reduced-motion: no-preference)',()=>{
+  const how=document.querySelector('.how'),track=how.querySelector('.track');
+  how.classList.add('hz');
+  const dist=()=>track.scrollWidth-innerWidth;
+  const tw=gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:how,start:'top top',end:()=>'+='+dist(),pin:true,scrub:1,invalidateOnRefresh:true}});
+  gsap.utils.toArray('.panel .num').forEach(n=>gsap.from(n,{yPercent:60,opacity:0,ease:'none',scrollTrigger:{trigger:n.parentElement,containerAnimation:tw,start:'left 85%',end:'left 40%',scrub:true}}));
+  return()=>how.classList.remove('hz');
+ });
+ addEventListener('load',()=>ScrollTrigger.refresh());
+}
+}
+</script>
+</body>
+</html>
